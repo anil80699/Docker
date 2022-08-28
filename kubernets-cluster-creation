@@ -1,0 +1,80 @@
+Create a new ec2 instance with t2.medium and with 30gb memory
+launch the instance run below commands
+sudo bash
+apt update -y
+apt upgrade -y
+#########################
+INSTALL JAVA
+#########################
+apt install default-jdk -y
+########################
+INSTALL JENKINS
+########################
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list' 
+sudo apt-get update 
+sudo apt-get install jenkins
+sudo service jenkins status 
+cat /var/lib/jenkins/secrets/initialAdminPassword
+###########################
+ADD GRADLE
+############################
+Goto -> Manage Jenkins -> Global Tool Configuration -> Gradle
+name -> default click on save
+###########################
+provide sudo access to jenkins user
+###########################
+sudo vi /etc/sudoers
+add this at the end of the line --> jenkins ALL=(ALL) NOPASSWD: ALL 
+sudo su - jenkins
+###########################
+INSTALL DOCKER
+##########################
+sudo apt install docker.io
+sudo usermod -aG docker jenkins
+########################
+INSTALL AWS CLI 
+########################
+sudo apt install awscli -y
+aws --version
+aws configure
+AWSAccessKeyId=AKIAY562CY53D3OL37XT
+AWSSecretKey=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
+region = some region 
+output format = none
+aws ec2 describe-instances
+
+########################
+run in root not as jenkins user
+########################
+apt install python3-pip
+sudo apt-get remove awscli
+sudo pip3 install -U awscli
+source ~/.bashrc
+aws --version
+#########################
+INSTALL KUBECTL from here or use below commands https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+#########################
+sudo apt-get update
+sudo apt-get install -y ca-certificates curl
+sudo apt-get install -y apt-transport-https
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+kubectl version --client
+##########################
+EKSCTL 
+##########################
+ curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+ sudo mv /tmp/eksctl /usr/local/bin
+ eksctl version
+##########################
+CLUSTER CREATION WITH EKSCTL
+###########################
+eksctl create cluster --name test-cluster --version 1.22 --region ap-southeast-1 --nodegroup-name worker-nodes --node-type t2.micro --nodes 2
+##########################
+kubectl get deployments
+kubectl get svc
+---> copy clusterip ip in loadbalancer part and uppend with /hello --> u need to see below msg
+Hello - *-k8s i Have updated the message
