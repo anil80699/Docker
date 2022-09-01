@@ -52,7 +52,7 @@ sudo pip3 install -U awscli
 source ~/.bashrc
 aws --version
 #########################
-INSTALL KUBECTL from here or use below commands https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+INSTALL KUBECTL as jenkins user from here or use below commands https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
 #########################
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
