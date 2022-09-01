@@ -42,7 +42,6 @@ AWSAccessKeyId=AKIAY562CY53D3OL37XT
 AWSSecretKey=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
 region = some region 
 output format = none
-aws ec2 describe-instances
 
 ########################
 run in root not as jenkins user
