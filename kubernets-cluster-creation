@@ -38,8 +38,8 @@ INSTALL AWS CLI
 sudo apt install awscli -y
 aws --version
 aws configure
-AWSAccessKeyId=AKIAY562CY53D3OL37XT
-AWSSecretKey=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
+AWSAccessKeyId=AKA***********************T
+AWSSecretKey=l*************************************0
 region = some region 
 output format = none
 
