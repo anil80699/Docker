@@ -1,0 +1,17 @@
+version: '3'
+services:
+        tomcat:
+                container_name: c5
+                hostname: c5
+                image: shanth929/ut1:v01
+                ports:
+                - "9095:8080"
+                command: [ "/usr/local/tomcat/bin/catalina.sh","run" ]
+                volumes:
+                - "/home/ubuntu/:/usr/local/tomcat/webapps/sample/test"
+                networks:
+                - devops
+
+networks:
+  devops:
+    external: true
